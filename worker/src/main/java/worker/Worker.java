@@ -8,8 +8,10 @@ import org.json.JSONObject;
 class Worker {
   public static void main(String[] args) {
     try {
-      Jedis redis = connectToRedis("redis");
-      Connection dbConn = connectToDB("db");
+      String db_host = System.getenv("DB_HOST");
+      String redis_host = System.getenv("REDIS_HOST");
+      Jedis redis = connectToRedis(redis_host);
+      Connection dbConn = connectToDB(db_host);
 
       System.err.println("Watching vote queue");
 
@@ -68,11 +70,14 @@ class Worker {
     try {
 
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://" + host + "/postgres";
+      String db_user = System.getenv("DB_USER");
+      String db_pass = System.getenv("DB_PASS");
+      String database = System.getenv("DATABASE");
+      String url = "jdbc:postgresql://" + host + "/" + database;
 
       while (conn == null) {
         try {
-          conn = DriverManager.getConnection(url, "postgres", "postgres");
+          conn = DriverManager.getConnection(url, db_user, db_pass);
         } catch (SQLException e) {
           System.err.println("Waiting for db");
           sleep(1000);

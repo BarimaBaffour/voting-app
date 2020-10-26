@@ -11,6 +11,9 @@ services:
     networks:
       - front-tier
       - back-tier
+    environment:
+      - REDIS_HOST=redis
+      - OPTION_C=test1
 
   result:
     build: ./result
@@ -23,6 +26,8 @@ services:
     networks:
       - front-tier
       - back-tier
+    environment:
+      - DB_HOST=db
 
   worker:
     build:
@@ -32,6 +37,12 @@ services:
       - "db"
     networks:
       - back-tier
+    environment:
+      - REDIS_HOST=redis
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DATABASE=postgres
 
   redis:
     image: redis:alpine
