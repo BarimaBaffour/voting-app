@@ -13,7 +13,6 @@ services:
       - back-tier
     environment:
       - REDIS_HOST=redis
-      - OPTION_C=test1
 
   result:
     build: ./result
@@ -52,18 +51,18 @@ services:
       - back-tier
 
   db:
-    image: postgres:9.4
+    image: postgres:12.4
     container_name: db
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-    volumes:
-      - "db-data:/var/lib/postgresql/data"
+    # volumes:
+    #   - "db-data:/var/lib/postgresql/data"
     networks:
       - back-tier
 
-volumes:
-  db-data:
+# volumes:
+#   db-data:
 
 networks:
   front-tier:
