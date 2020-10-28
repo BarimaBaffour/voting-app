@@ -1,7 +1,7 @@
 Example Voting App
 =========
 
-A simple distributed application running across multiple Docker containers.
+A simple distributed application running across multiple Docker containers. This has been modified from the original repository here: https://github.com/dockersamples/example-voting-app.
 
 Getting started
 ---------------
@@ -29,6 +29,8 @@ Once you have your swarm, in this directory run:
 ```
 docker stack deploy --compose-file docker-stack.yml vote
 ```
+
+The docker-compose file contains environment variables which are set to default to the original from https://github.com/dockersamples/example-voting-app, this allows you to take this application and deploy it in a Container orchestration service with external Redis and Postgres services.
 
 ## Windows Containers
 
